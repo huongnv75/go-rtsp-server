@@ -174,6 +174,9 @@ func newProgram(args []string, stdin io.Reader) (*program, error) {
 
 	argVersion := k.Flag("version", "print version").Bool()
 	argConfPath := k.Arg("confpath", "path to a config file. The default is rtsp-simple-server.yml. Use 'stdin' to read config from stdin").Default("rtsp-simple-server.yml").String()
+	argRtspPort := k.Flag("rtsp", "rtsp port ").Int()
+	argRtpPort := k.Flag("rtp", "rtp port ").Int()
+	argRtcpPort := k.Flag("rtcp", "rtcp port ").Int()
 
 	kingpin.MustParse(k.Parse(args))
 
@@ -186,7 +189,10 @@ func newProgram(args []string, stdin io.Reader) (*program, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	conf.RtspPort = *argRtspPort
+	conf.RtpPort = *argRtpPort
+	conf.RtcpPort = *argRtcpPort
+	
 	p := &program{
 		conf:       conf,
 		clients:    make(map[*serverClient]struct{}),
