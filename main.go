@@ -223,23 +223,23 @@ func newProgram(args []string, stdin io.Reader) (*program, error) {
 		http.DefaultServeMux = http.NewServeMux()
 	}
 
-	p.rtpl, err = newServerUdpListener(p, conf.RtpPort, gortsplib.StreamTypeRtp)
-	if err != nil {
-		return nil, err
-	}
+	// p.rtpl, err = newServerUdpListener(p, conf.RtpPort, gortsplib.StreamTypeRtp)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	p.rtcpl, err = newServerUdpListener(p, conf.RtcpPort, gortsplib.StreamTypeRtcp)
-	if err != nil {
-		return nil, err
-	}
+	// p.rtcpl, err = newServerUdpListener(p, conf.RtcpPort, gortsplib.StreamTypeRtcp)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	p.rtspl, err = newServerTcpListener(p)
 	if err != nil {
 		return nil, err
 	}
 
-	go p.rtpl.run()
-	go p.rtcpl.run()
+	// go p.rtpl.run()
+	// go p.rtcpl.run()
 	go p.rtspl.run()
 	for _, s := range p.sources {
 		go s.run()
